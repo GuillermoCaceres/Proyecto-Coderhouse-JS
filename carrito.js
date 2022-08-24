@@ -16,36 +16,14 @@ function generarCardsCarrito() {
         `
     })
 }
-const productos = [
-    {   
-        id:1,
-        title: "Zapatilla Adidas",
-        img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMT6IE5Muhink2wQbIGlU1bso4SLGK2SQ3_g&usqp=CAU",
-        price: 37500,
-        category: "Zapatillas",
-    },
-    {   
-        id:2,
-        title: "Remera Nike",
-        img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfDOfBNRxs6Y-coAAjNweHPCH22asxVmOxAQ&usqp=CAU",
-        price: 1800,
-        category: "Remeras",
-    },
-    {   
-        id:3,
-        title: "Remera Adidas",
-        img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5q68Fxz4lrIfAFUGLNnYwK3ZbkE28QWGATQ&usqp=CAU",
-        price: 2500,
-        category: "Remeras",
-    },
-    {   
-        id:4,
-        title: "Zapatilla Nike",
-        img:"https://www.tradeinn.com/f/13803/138030718/nike-zapatillas-trail-running-wildhorse-7.jpg",
-        price: 40000,
-        category: "Zapatillas",
-    },
-]
+
+
+const lista = document.querySelector('#listado')
+/* Aca traigo la informacion del listado de JSON */
+fetch('/listaProductos.json')
+    .then( (resp) =>resp.json())
+    .then( (productos) => {
+
 let cards = "";
 productos.forEach((producto) => {
     const idButton = `add-cart${producto.id}`
@@ -63,8 +41,13 @@ productos.forEach((producto) => {
         </div>
     </div>`
 })
+    })
 
 function agregarAlCarrito (){ 
+    /* traigo nuevamente el listado de JSON para darle funcionalidad el carrito */
+    fetch('/listaProductos.json')
+    .then( (resp) =>resp.json())
+    .then( (productos) => {
 productos.forEach((producto)=> {
     const idButton = `add-cart${producto.id}`
     document.getElementById(idButton).addEventListener('click', () => {
@@ -101,7 +84,7 @@ productos.forEach((producto)=> {
           }).showToast();
     })
 })
-}
+})}
 agregarAlCarrito()
 console.log(document.getElementsByClassName('filtrar-categoria'))
 for (const nodoHTML of document.getElementsByClassName('filtrar-categoria')){
